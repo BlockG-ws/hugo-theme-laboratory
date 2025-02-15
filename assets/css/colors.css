@@ -1,0 +1,23 @@
+/* default color */
+:root {
+    --background-color: #222;
+    --text-color: #ddd;
+    --link-color: #0ff;
+}
+/* color scheme */
+/* dark */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #222;
+        --text-color: #ddd;
+        --link-color: #0ff;
+    }
+}
+/* light */
+@media (prefers-color-scheme: light) {
+    :root {
+        --background-color: #fff;
+        --text-color: #222;
+        --link-color: #00f;
+    }
+}

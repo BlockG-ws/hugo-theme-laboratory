@@ -1,0 +1,33 @@
+/* content layout */
+section.content {
+    margin-top: 1rem;
+    max-width: 93.75%;
+    @media screen and (width<=768px) {
+        margin: 0;
+        max-width: 100%;
+    }
+}
+/* text */
+section.content {
+    text-align: justify;
+}
+/* images */
+article figure {
+    margin: 0;
+}
+article figure figcaption {
+    color: grey;
+    font-size: smaller;
+}
+/* comments */
+section.comments {
+    padding-top: 1rem;
+    max-width: 93.75%;
+    @media screen and (width<=768px) {
+        max-width: 100%;
+    }
+}
+section.comments hr{
+    border: none;
+    border-top: slategray dashed 2px;
+}

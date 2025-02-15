@@ -1,0 +1,60 @@
+/* fixed header, inspired by freemind.386 */
+header {
+    background-color: var(--background-color);
+    margin-bottom: 1rem;
+    display: flex;
+    top: 0;
+    position: fixed;
+    width: 80%;
+    @media screen and (width<=768px) {
+        width: calc(100% - 2rem);
+        display: block;
+        position: sticky;
+    }
+}
+
+header a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: var(--link-color) underline 4px;
+    text-underline-offset: 5px;
+}
+
+header .site-title {
+    margin-right: 1rem;
+}
+
+/* menu bar */
+header nav div.desktop-menu {
+    @media screen and (width<=768px) {
+        display: none;
+    }
+}
+
+header nav div.desktop-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+header nav div.desktop-menu li {
+    display: inline;
+    margin-right: 1rem;
+}
+
+header nav details.mobile-menu {
+    display: none;
+    @media screen and (width<=768px) {
+        display: block;
+    }
+}
+
+main {
+    margin-top: 3rem;
+    @media screen and (width<=768px) {
+        margin-top: 2px;
+    }
+}

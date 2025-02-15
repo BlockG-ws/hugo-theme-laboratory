@@ -1,0 +1,12 @@
+<div class="copyright">
+<p>
+    {{ if .Site.Copyright }}
+        {{ .Site.Copyright }}
+    {{ else }}
+        &copy; {{ now.Format "2006" }} {{ .Site.Title }}, All rights reserved.
+    {{ end }}
+</p>
+<p>
+    <a href="https://gohugo.io" target="_blank">Hugo</a> + <a href="https://github.com/BlockG-ws/hugo-theme-laboratory" title=":)" target="_blank">Laboratory</a> = This Awesome Website
+</p>
+</div>

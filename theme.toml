@@ -1,0 +1,20 @@
+name = 'Laboratory'
+license = 'MIT'
+licenselink = 'https://github.com/BlockG-ws/hugo-theme-laboratory/LICENSE'
+description = 'A simple & cool theme like the laboratory for blogs'
+
+# The home page of the theme, where the source can be found
+homepage = 'https://github.com/BlockG-ws/hugo-theme-laboratory'
+
+# If you have a running demo of the theme
+# TODO: add one
+# demosite = 'https://owner.github.io/repo'
+
+# Taxonomy terms
+tags = ['blog', 'personal website']
+features = ['minimal', 'social cards', 'no javascript by default','responsive', 'auto dark mode', 'search']
+
+# If the theme has a single author
+[author]
+  name = 'Grassblock'
+  homepage = 'https://gb0.dev'

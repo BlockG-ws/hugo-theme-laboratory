@@ -1,0 +1,18 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<meta name="description" content="{{ .Description }}">
+<meta name="author" content="{{ .Params.author }}">
+{{/* social */}}
+{{ partial "social-card.html" . }}
+{{/* rss */}}
+{{ with .OutputFormats.Get "rss" -}}
+    {{ printf `<link rel=%q type=%q href=%q title=%q>` .Rel .MediaType.Type .Permalink site.Title | safeHTML }}
+{{ end }}
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s - %s" .Title site.Title }}{{ end }}</title>
+{{- if eq hugo.Environment "development" }}
+    {{ partial "head/css.html" . }}
+    {{ partial "head/js.html" . }}
+{{- else }}
+    {{ partialCached "head/css.html" . }}
+    {{ partialCached "head/js.html" . }}
+{{- end }}
