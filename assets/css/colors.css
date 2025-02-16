@@ -1,23 +1,26 @@
 /* default color */
 :root {
     --background-color: #222;
+    --accent-color: #0df;
     --text-color: #ddd;
     --link-color: #0ff;
 }
 /* color scheme */
-/* dark */
-@media (prefers-color-scheme: dark) {
-    :root {
-        --background-color: #222;
-        --text-color: #ddd;
-        --link-color: #0ff;
-    }
-}
 /* light */
 @media (prefers-color-scheme: light) {
     :root {
         --background-color: #fff;
+        --accent-color: #0df;
         --text-color: #222;
         --link-color: #00f;
+    }
+}
+/* dark */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #222;
+        --accent-color: #0df;
+        --text-color: #ddd;
+        --link-color: #0ff;
     }
 }

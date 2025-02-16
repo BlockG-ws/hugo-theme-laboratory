@@ -1,0 +1,29 @@
+/* inspired by terminal theme from bearblog.dev */
+header {
+    padding-top: 20px;
+}
+/* title */
+header a.site-title {
+    font-size: 1em;
+    padding: 5px 10px;
+    background: var(--accent-color);
+    color: var(--background-color);
+    display: inline-block;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+/* menu bar */
+header nav details.mobile-menu {
+    display: none;
+}
+
+header nav div.desktop-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+header nav div.desktop-menu li {
+    display: inline;
+    margin-right: 1rem;
+}
