@@ -1,21 +1,39 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-US'
+# TODO: i18n
 title = 'My New Hugo Site'
+copyright = '' # set it according to your needs
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.parser]
       wrapStandAloneImageWithinParagraph = false
 
-[[menus.main]]
-name = 'Posts'
-pageRef = '/posts'
-weight = 20
+[params]
+headerStyle = 'terminal' # choose between "terminal" and "386" (default is 386), or you can create one, simply put it into "assets/css/header/".
+siteCoverImage = '' # path to the image you want to use as the site cover image
+# the 'type' of the posts displayed in the homepage (default is posts).
+# To make it simple, you should put all of your writings into 'contents/[defaultPostsType]/'.
+# see https://gohugo.io/methods/page/type/#article for details.
+defaultPostsType = 'posts'
+[params.article]
+# set it to true if you want to show comments in your posts
+# To set it up correctly, you need to put some configurations in 'config.toml' and 'layouts/partials/comments.html'.
+showComments = false
+[params.author]
+    name = "Wheatley" # from https://theportalwiki.com/wiki/Wheatley :P, change it to suit your needs.
+    email = "hello@example.com" # maybe you need it.
+
 
 [[menus.main]]
-name = 'Tags'
-pageRef = '/tags'
-weight = 30
+  name = 'Posts'
+  pageRef = '/posts'
+  weight = 20
+
+[[menus.main]]
+  name = 'Tags'
+  pageRef = '/tags'
+  weight = 30
 
 [module]
   [module.hugoVersion]
