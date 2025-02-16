@@ -23,8 +23,8 @@
     {{ $img := .Permalink }}
   {{- end }}
 {{- end }}
-{{/* generate a card as the fallback. */}}
-{{- if not $img }}
+{{/* generate a card as the fallback for pages. */}}
+{{- if and .IsPage (not $img) }}
   <!-- Dynamic social card generation -->
   {{ $font := resources.Get "fonts/SarasaMonoSC-Bold.ttf" }}
   {{ $fg := resources.Get "images/social_card_fg.png"}}
@@ -51,7 +51,7 @@
   {{ end }}
 
   {{ $date := .Date.Format (default "2006-01-02" .Site.Params.dateFormat) }}
-  {{ $author := (default $.Site.Params.author.name ($.Param "author") ) }}
+  {{ $author := (or $.Site.Params.author.name .Params.author ($.Param "author") ) }}
   {{ $byline := (printf "%s | %s" $author $date) }}
 
   {{ $fg = $fg.Filter (images.Text $byline (dict
@@ -67,17 +67,19 @@
   {{ $card := $card.Resize "900x webp q100" }}
   {{ $img = $card.Permalink }}
 {{- end }}
-{{/* Parse page's images parameter. */}}
-{{- $url := urls.Parse $img }}
-{{- if eq $url.Scheme "" }}
-  {{/* Internal image. */}}
-  {{- with $resources.GetMatch $img -}}
-    {{/* Image resource. */}}
-    {{- $imgs = .Permalink }}
-  {{- else }}
-    {{- $imgs =  absURL $img }}
+{{/* Parse images parameter. */}}
+{{ if $img }}
+  {{- $url := urls.Parse $img }}
+  {{- if eq $url.Scheme "" }}
+    {{/* Internal image. */}}
+    {{- with $resources.GetMatch $img -}}
+      {{/* Image resource. */}}
+      {{- $img = .Permalink }}
+    {{- else }}
+      {{- $img =  absURL $img }}
+    {{- end }}
   {{- end }}
-{{- end }}
+{{ end }}
 
 <!-- Open Graph / Facebook -->
 <!-- Source: https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/opengraph.html -->
@@ -85,8 +87,9 @@
 <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
 <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
 <meta property="og:url" content="{{ .Permalink }}" />
-<meta property="og:image" content="{{ $img }}"/>
-
+{{ if $img }}
+  <meta property="og:image" content="{{ $img }}"/>
+{{ end }}
 
 {{- if .IsPage }}
   {{- $iso8601 := "2006-01-02T15:04:05-07:00" -}}
@@ -128,7 +131,9 @@
 <!-- Twitter -->
 <!-- Source: https://github.com/gohugoio/hugo/blob/master/tpl/tplimpl/embedded/templates/twitter_cards.html -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="{{ $img }}"/>
+{{ if $img }}
+  <meta name="twitter:image" content="{{ $img }}"/>
+{{ end }}
 <meta name="twitter:title" content="{{ .Title }}"/>
 <meta name="twitter:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}}"/>
 
@@ -158,7 +163,9 @@
   {{ with .PublishDate }}<meta itemprop="datePublished" {{ .Format $iso8601 | printf "content=%q" | safeHTMLAttr }} />{{ end}}
   {{ with .Lastmod }}<meta itemprop="dateModified" {{ .Format $iso8601 | printf "content=%q" | safeHTMLAttr }} />{{ end}}
   <meta itemprop="wordCount" content="{{ .WordCount }}">
-  <meta itemprop="image" content="{{ $img }}"/>
+  {{ if $img }}
+    <meta itemprop="image" content="{{ $img }}"/>
+  {{ end }}
   <!-- Output all taxonomies as schema.org keywords -->
   <meta itemprop="keywords" content="{{ if .IsPage}}{{ range $index, $tag := .Params.tags }}{{ $tag }},{{ end }}{{ else }}{{ range $plural, $terms := .Site.Taxonomies }}{{ range $term, $val := $terms }}{{ printf "%s," $term }}{{ end }}{{ end }}{{ end }}" />
 {{- end -}}
