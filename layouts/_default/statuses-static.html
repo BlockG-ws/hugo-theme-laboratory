@@ -1,0 +1,111 @@
+{{ define "main" }}
+{{- with resources.Get "css/statuses.css" }}
+{{- if eq hugo.Environment "development" }}
+<link rel="stylesheet" href="{{ .RelPermalink }}">
+{{- else }}
+{{- with . | minify | fingerprint }}
+<link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"
+      crossorigin="anonymous">
+{{- end }}
+{{- end }}
+{{- end }}
+<div class="container">
+    {{ $data := dict }}
+    {{ $url := "https://portal.gb0.dev/api/v1/accounts/me/statuses?limit=20" }}
+    {{ with try (resources.GetRemote $url) }}
+    {{ with .Err }}
+    {{ errorf "%s" . }}
+    {{ else with .Value }}
+    {{ $data = . | transform.Unmarshal }}
+    {{ else }}
+    {{ errorf "Unable to get remote resource %q" $url }}
+    {{ end }}
+    {{ end }}
+    <!-- TODO: get data from mastoapi -->
+
+    {{/* Loop through all YAML files in data/statuses directory */}}
+    {{ range $source, $statuses := .Site.Data.statuses }}
+    {{ range $id, $status := $statuses }}
+    <section class="post{{ if $status.sensitive }} sensitive{{ end }}">
+        {{ if $status.sensitive }}
+        <div class="content-warning">
+            <div class="spoiler-header">
+                <span class="spoiler-text">{{ $status.spoiler_text }}</span>
+                <button class="spoiler-toggle">Show content</button>
+            </div>
+            <div class="spoiler-content" hidden>
+                {{ if $status.content }}
+                <div class="content">{{ $status.content | markdownify | safeHTML }}</div>
+                {{ end }}
+                {{ if $status.media_attachments_url }}
+                <div class="media-attachments">
+                    {{ range $status.media_attachments_url }}
+                    <div class="media-attachment">
+                        {{ $ext := path.Ext . }}
+                        {{ if or (eq $ext ".jpg") (eq $ext ".jpeg") (eq $ext ".png") (eq $ext ".gif") (eq $ext ".webp")
+                        }}
+                        <img src="{{ . }}" loading="lazy" alt="">
+                        {{ else if eq $ext ".mp4" }}
+                        <video controls preload="metadata">
+                            <source src="{{ . }}" type="video/mp4">
+                        </video>
+                        {{ else }}
+                        <a href="{{ . }}" target="_blank" rel="noopener">View attachment</a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+        </div>
+        {{ else }}
+        {{ if $status.content }}
+        <div class="content">{{ $status.content | markdownify | safeHTML }}</div>
+        {{ end }}
+        {{ if $status.media_attachments_url }}
+        <div class="media-attachments">
+            {{ range $status.media_attachments_url }}
+            <div class="media-attachment">
+                {{ $ext := path.Ext . }}
+                {{ if or (eq $ext ".jpg") (eq $ext ".jpeg") (eq $ext ".png") (eq $ext ".gif") (eq $ext ".webp") }}
+                <img src="{{ . }}" loading="lazy" alt="">
+                {{ else if eq $ext ".mp4" }}
+                <video controls preload="metadata">
+                    <source src="{{ . }}" type="video/mp4">
+                </video>
+                {{ else }}
+                <a href="{{ . }}" target="_blank" rel="noopener">View attachment</a>
+                {{ end }}
+                {{ end }}
+            </div>
+        </div>
+        {{ end }}
+        {{ end }}
+
+        <div class="status-metadata">
+            <time datetime="{{ $status.created_at }}">
+                {{ dateFormat "2006-01-02 15:04" $status.created_at }}
+            </time>
+            <a href="{{ $status.url }}" target="_blank" rel="noopener" class="status-link">
+                View original
+            </a>
+            <span class="visibility">{{ $status.visibility }}</span>
+            <span class="source">via {{ $source }}</span>
+        </div>
+    </section>
+    {{ end }}
+    {{ end }}
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.spoiler-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.closest('.content-warning').querySelector('.spoiler-content');
+                const isHidden = content.hidden;
+                content.hidden = !isHidden;
+                button.textContent = isHidden ? 'Hide content' : 'Show content';
+            });
+        });
+    });
+</script>
+{{ end }}

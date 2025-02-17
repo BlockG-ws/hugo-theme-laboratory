@@ -1,0 +1,272 @@
+div.container {
+    margin: 0 auto;
+}
+
+.container .post {
+    border: 1px solid #ccc;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    display: none;
+}
+
+.loading.visible {
+    display: block;
+}
+
+.error {
+    color: red;
+    text-align: center;
+    padding: 20px;
+    display: none;
+}
+/* 自定义表情 */
+.custom-emoji {
+    height: 1.2em;
+    width: auto;
+    vertical-align: middle;
+    margin: 0 0.1em;
+}
+
+.custom-emoji.emoji-error {
+    display: none;
+}
+
+/* 媒体附件相关样式 */
+.reblogged-content .media-attachments {
+    padding-right: 10px;
+}
+.media-attachments {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.media-attachment {
+    position: relative;
+    width: 100%;
+    background: #f5f5f5;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.media-attachment img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.media-attachment img:hover {
+    opacity: 0.9;
+}
+
+.media-attachment.video {
+    aspect-ratio: 16/9;
+}
+
+.media-attachment video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.media-attachment audio {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.media-description {
+    font-size: 0.9em;
+    color: #666;
+    margin-top: 5px;
+}
+
+
+/* 灯箱样式 */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.lightbox.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;
+}
+
+/* 响应式调整 */
+@media (max-width: 600px) {
+    .media-attachments {
+        grid-template-columns: 1fr;
+    }
+}
+
+.spoiler .hidden {
+    display: none;
+}
+
+/* 添加转发相关样式 */
+.reblog-header {
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+}
+
+.reblog-header .username {
+    color: #2b90d9;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.reblog-header .username:hover {
+    text-decoration: underline;
+}
+
+.reblogged-content {
+    border-left: 3px solid #2b90d9;
+    padding-left: 15px;
+    margin: 10px 0;
+    background: #f8f8f8;
+    border-radius: 0 4px 4px 0;
+}
+
+.post-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.display-name {
+    font-weight: bold;
+}
+
+.account-name {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* 添加帖子链接相关样式 */
+.post-actions {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    gap: 15px;
+    font-size: 0.9em;
+}
+
+.post-actions .timestamp {
+    color: #666;
+    text-decoration: none;
+}
+
+.post-link {
+    color: #666;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.post-link:hover {
+    color: #2b90d9;
+}
+
+.post-link svg {
+    width: 16px;
+    height: 16px;
+}
+/* 处理 CWs */
+.content-warning {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.spoiler-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #e0e0e0;
+}
+
+.spoiler-text {
+    font-weight: bold;
+    color: #333;
+}
+
+.spoiler-toggle {
+    background-color: #4a4a4a;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.spoiler-toggle:hover {
+    background-color: #666;
+}
+
+.spoiler-content {
+    padding: 10px;
+}
+
+.spoiler-content[hidden] {
+    display: none;
+}
+
+/* for static */
+.status-metadata {
+    color: #666;
+    font-size: 0.9rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+
+.visibility {
+    text-transform: capitalize;
+    color: #888;
+}
+.source {
+    font-size: 0.8rem;
+    color: #999;
+    font-style: italic;
+}
+
