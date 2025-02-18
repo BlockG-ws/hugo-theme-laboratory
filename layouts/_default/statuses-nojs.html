@@ -1,0 +1,100 @@
+{{ define "main" }}
+{{- with resources.Get "css/statuses.css" }}
+    {{- if eq hugo.Environment "development" }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{- else }}
+        {{- with . | minify | fingerprint }}
+            <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"
+                  crossorigin="anonymous">
+        {{- end }}
+    {{- end }}
+{{- end }}
+    {{ $data := dict }}
+    {{ $fetchParams := collections.Querify (dict "limit" (default 20 .Params.limit) "exclude_replies" (default false .Params.excluded_replys) "exclude_reblogs" (default false .Params.excluded_reblogs)  "only_media" (default false .Params.only_media) ) }}
+    {{ $url := printf "%s/api/v1/accounts/%s/statuses?%s" .Params.instance_url .Params.username $fetchParams }}
+    {{- with try (resources.GetRemote $url) -}}
+        {{- with .Err }}
+            {{ errorf "%s" . }}
+        {{ else with .Value }}
+            {{ $data = . | transform.Unmarshal }}
+        {{- else }}
+            {{ errorf "Unable to get remote resource %q" $url }}
+        {{ end }}
+    {{- end -}}
+<div class="container">
+{{ range $status := $data }}
+    {{/* since hugo varibles has its own scope and it's not possible to created varibles globally by now, these varibles must be created first. */}}
+    {{ $reblogged := $status.reblog | not | not }}
+    {{ $actual_time := $status.created_at }}
+    <section class="post{{ if $status.sensitive }} sensitive{{ end }}">
+        {{ if $reblogged }}
+        <span>转发帖子：</span>
+        {{ $status = $status.reblog }}
+        {{ end }}
+        {{ if $status.sensitive }}
+        <div class="content-warning">
+            <details><summary>{{ $status.spoiler_text }}</summary>
+            <div class="spoiler-content">
+                {{ if $status.content }}
+            <div class="content">{{ $status.content | safeHTML }}</div>
+                {{ end }}
+                {{ if $status.media_attachments }}
+                <div class="media-attachments">
+                    {{ range $media_attachment := $status.media_attachments}}
+                    <div class="media-attachment">
+                        {{ if eq $media_attachment.type "image" }}
+                        <img src="{{ $media_attachment.url }}" loading="lazy" alt="">
+                        {{ else if eq $media_attachment.type "video" }}
+                        <video controls preload="metadata">
+                            <source src="{{ $media_attachment.url }}" type="video/mp4">
+                        </video>
+                        {{ else }}
+                        <a href="{{ $media_attachment.url }}" target="_blank" rel="noopener">View attachment</a>
+                        {{ end }}
+                    </div>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+            </details>
+        </div>
+        {{ else }}
+        {{ if $status.content }}
+        <div class="content">{{ $status.content | safeHTML }}</div>
+        {{ end }}
+        {{ if $status.media_attachments }}
+        <div class="media-attachments">
+            {{ range $media_attachment := $status.media_attachments }}
+            <div class="media-attachment">
+            {{ if eq $media_attachment.type "image" }}
+            <img src="{{ $media_attachment.url }}" loading="lazy" alt="">
+            {{ else if eq $media_attachment.type "video" }}
+            <video controls preload="metadata">
+                <source src="{{ $media_attachment.url }}" type="{{ default "video/mp4" $media_attachment.pleroma.mime_type }}">
+            </video>
+            {{ else }}
+            <a href="{{ $media_attachment.url }}" target="_blank" rel="noopener">View attachment</a>
+            {{ end }}
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+        {{ end }}
+
+        <div class="status-metadata">
+            <time datetime="{{ if $reblogged }} {{ $actual_time }} {{ else }}{{ $status.created_at }} {{ end }}">
+                {{ if $reblogged }}
+                {{ dateFormat "2006-01-02 15:04" $actual_time }}
+                {{ else }}
+                {{ dateFormat "2006-01-02 15:04" $status.created_at }}
+                {{ end }}
+            </time>
+            <a href="{{ $status.url }}" target="_blank" rel="noopener" class="status-link">
+                View original
+            </a>
+            <span class="visibility">{{ $status.visibility }}</span>
+        </div>
+    </section>
+    {{ end }}
+</div>
+{{ end }}

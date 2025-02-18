@@ -10,19 +10,6 @@
 {{- end }}
 {{- end }}
 <div class="container">
-    {{ $data := dict }}
-    {{ $url := "https://portal.gb0.dev/api/v1/accounts/me/statuses?limit=20" }}
-    {{ with try (resources.GetRemote $url) }}
-    {{ with .Err }}
-    {{ errorf "%s" . }}
-    {{ else with .Value }}
-    {{ $data = . | transform.Unmarshal }}
-    {{ else }}
-    {{ errorf "Unable to get remote resource %q" $url }}
-    {{ end }}
-    {{ end }}
-    <!-- TODO: get data from mastoapi -->
-
     {{/* Loop through all YAML files in data/statuses directory */}}
     {{ range $source, $statuses := .Site.Data.statuses }}
     {{ range $id, $status := $statuses }}
@@ -76,8 +63,8 @@
                 {{ else }}
                 <a href="{{ . }}" target="_blank" rel="noopener">View attachment</a>
                 {{ end }}
-                {{ end }}
             </div>
+            {{ end }}
         </div>
         {{ end }}
         {{ end }}
