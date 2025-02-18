@@ -28,6 +28,8 @@
      {{- end }}
  {{- end }}
 <script>
+    // TODO: make instance_url to adaptively handle input like "instance.tld" and "https://instance.tld"
+    // TODO: move params to [fetchParams] of the statues file
     {{ $fetchParams := dict "limit" .Params.limit "exclude_replies" .Params.excluded_replys "exclude_reblogs" .Params.excluded_reblogs "only_media" .Params.only_media "tagged" .Params.tagged | jsonify | safeJS }}
     const fetcher = new Fetcher('{{.Params.instance_url}}', '{{ .Params.username }}',{{ $fetchParams }});
 </script>

@@ -9,6 +9,10 @@ div.container {
     border-radius: 5px;
 }
 
+.container .post a {
+    line-break: anywhere;
+}
+
 .loading {
     text-align: center;
     padding: 20px;
@@ -41,6 +45,7 @@ div.container {
 .reblogged-content .media-attachments {
     padding-right: 10px;
 }
+
 .media-attachments {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -51,7 +56,6 @@ div.container {
 .media-attachment {
     position: relative;
     width: 100%;
-    background: #f5f5f5;
     border-radius: 4px;
     overflow: hidden;
 }
@@ -146,7 +150,6 @@ div.container {
     border-left: 3px solid #2b90d9;
     padding-left: 15px;
     margin: 10px 0;
-    background: #f8f8f8;
     border-radius: 0 4px 4px 0;
 }
 
