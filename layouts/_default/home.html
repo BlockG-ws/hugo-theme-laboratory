@@ -1,14 +1,16 @@
 {{ define "main" }}
   {{ .Content }}
-  <h2>Posts</h2>
-  {{ $postsType := default .Site.Params.defaultPostsType "posts" }}
-  {{ range where site.RegularPages "Type" $postsType }}
-    <h3><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h3>
-    {{/* If the page has a description, use it. Otherwise, use the summary. */}}
-    {{ if .Description }}
-      {{ .Description }}
+  {{ if or .Site.Params.postsAtHome true }}
+    {{ with .Site.Params.articleListStyle }}
+      {{/* provide possibility to set a custom list style */}}
+      {{ $list_partial := print "article-list/" . ".html" }}
+      {{ if templates.Exists $list_partial }}
+        {{ partial $list_partial . }}
+      {{ else }}
+        {{ warnf "[LAB] List style %s is set, but does not exist." . }}
+        {{ end }}
     {{ else }}
-      {{ .Summary }}
+        {{ partial "article-list/default.html" . }}
     {{ end }}
   {{ end }}
 {{ end }}

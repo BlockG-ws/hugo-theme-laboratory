@@ -1,0 +1,13 @@
+<h3>Posts</h3>
+<div class="posts-list">
+{{ $postsType := default .Site.Params.defaultPostsType "posts" }}
+{{ range where site.RegularPages "Type" $postsType }}
+    <b><a class="unset" href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></b>
+    {{/* If the page has a description, use it. Otherwise, use the summary. */}}
+    {{ if .Description }}
+        <p>{{ .Description }}</p>
+    {{ else }}
+        <p>{{ .Summary }}</p>
+    {{ end }}
+{{ end }}
+</div>

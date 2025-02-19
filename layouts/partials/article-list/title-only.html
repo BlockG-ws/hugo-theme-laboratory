@@ -1,0 +1,7 @@
+<h3>Posts</h3>
+{{ $postsType := default .Site.Params.defaultPostsType "posts" }}
+<ul class="posts-list">
+{{ range where site.RegularPages "Type" $postsType }}
+    <li><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></li>
+{{ end }}
+</ul>

@@ -14,6 +14,44 @@ body {
     max-width: 100%;
   }
 }
+/* posts list */
+div.posts-list {
+  margin-top: .25em;
+  a {
+    color: var(--text-color);
+    text-decoration: none;
+  }
+  a.unset {
+    color: var(--link-color);
+    text-decoration: underline;
+  }
+  li {
+    list-style: none;
+  }
+}
+/* for micro style */
+div.post-meta {
+  margin: .5em;
+  padding: 10px;
+  border: 1px solid color-mix(in oklab, var(--text-color) 15%, transparent);
+  border-radius: 10px;
+  p {
+    margin: .25em auto;
+  }
+  p.post-title {
+    font-weight: bold;
+  }
+  p.post-description {
+    font-size: small;
+  }
+  @media screen and (width<=768px) {
+    margin: .5em 0;
+  }
+}
+
+div.post-meta:hover {
+  background-color: color-mix(in oklab,var(--text-color)5%,transparent)
+}
 
 footer {
   margin-top: 1rem;

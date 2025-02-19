@@ -1,0 +1,22 @@
+{{/* inspired by astro-micro */}}
+<h2 class="posts-header">Posts</h2>
+<div class="posts-list">
+{{ $postsType := default .Site.Params.defaultPostsType "posts" }}
+{{ range where site.RegularPages "Type" $postsType }}
+    <li>
+        <a href="{{ .RelPermalink }}">
+        <div class="post-meta">
+            <p class="post-title">{{ .LinkTitle }}</p>
+            {{/* If the page has a description, use it. Otherwise, use the summary. */}}
+            <p class="post-description">
+            {{ if .Description }}
+                {{ .Description | safeHTML | truncate 50 | plainify }}
+            {{ else }}
+                {{ .Summary | safeHTML | truncate 50 | plainify }}
+            {{ end }}
+            </p>
+        </div>
+        </a>
+    </li>
+{{ end }}
+</div>
