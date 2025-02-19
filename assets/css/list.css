@@ -1,0 +1,7 @@
+li.list-content {
+    display: flex;
+}
+li.list-content time {
+    flex: 0 0 150px;
+    margin-right: 1em;
+}
