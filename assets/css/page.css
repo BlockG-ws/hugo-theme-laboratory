@@ -7,6 +7,29 @@ section.content {
         max-width: 100%;
     }
 }
+/* toc */
+details.toc {
+    margin-top: 1rem;
+    max-width: 93.75%;
+    @media screen and (width<=768px) {
+        max-width: 100%;
+    }
+    padding: 4px;
+    border: 1px solid color-mix(in oklab, var(--text-color) 15%, transparent);
+    border-radius: 5px;
+}
+nav#TableOfContents {
+    margin-top: 1rem;
+    max-width: 93.75%;
+    @media screen and (width<=768px) {
+        max-width: 100%;
+    }
+    a {
+        color: var(--text-color);
+        text-decoration: underline;
+        text-decoration-color: color-mix(in oklab, var(--text-color) 15%, transparent);
+    }
+}
 /* text */
 section.content {
     text-align: justify;

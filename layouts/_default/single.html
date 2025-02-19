@@ -6,6 +6,13 @@
     {{ $dateHuman := .Date | time.Format ":date_long" }}
     <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time> | <wordcount> {{ .WordCount }} Words </wordcount>
     </section>
+    {{/* whether to display TOC according to article, inspired from https://github.com/nunocoracao/blowfish/blob/96a116a8b0354fc1042c968608a5c1f3001bcbef/layouts/_default/single.html#L66 */}}
+    {{ if in .TableOfContents "<ul" }}
+    <details class="toc">
+      <summary> Table of Contents </summary>
+        {{ .TableOfContents }}
+    </details>
+    {{ end }}
     <section class="content" id="content">
       {{ .Content }}
     </section>
