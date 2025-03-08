@@ -1,7 +1,9 @@
 <a class="site-title" href="{{ "" | relLangURL }}">{{ site.Title }}</a>
 <nav>
-    <div class="desktop-menu">{{ partial "menu.html" (dict "menuID" "main" "page" .) }}</div>
+    <div class="desktop-menu">
+        {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+    </div>
     <details class="mobile-menu"><summary>菜单</summary>
-            {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+        {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
     </details>
 </nav>

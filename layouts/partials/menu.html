@@ -13,6 +13,12 @@ Renders a menu for the given menu ID.
 {{- with index site.Menus $menuID }}
     <ul>
       {{- partial "inline/menu/walk.html" (dict "page" $page "menuEntries" .) }}
+      {{/* search */}}
+      {{ with $page.Site.Params.search }}
+        {{ if eq .method "fastsearch" }}
+          <li> <a id="search-button">Search</a> </li>
+        {{ end }}
+      {{ end }}
     </ul>
 {{- end }}
 
