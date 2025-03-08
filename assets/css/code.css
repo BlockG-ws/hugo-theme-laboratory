@@ -1,13 +1,27 @@
 /* Generated using: hugo gen chromastyles --style=nord */
+pre, code, kbd, samp, pre tt {
+    font-family: Consolas, Courier, "Courier New", monospace;
+}
+
 .chroma {
     margin: 0.5em 0;
     padding: 1em;
     overflow: auto;
     border-radius: 0.3em;
+    font-size: 0.875rem;
 }
+
 td .chroma {
     padding: 0;
     border-radius: 0;
+}
+
+pre:not(.chroma) {
+    font-size: 0.875rem;
+    overflow: auto;
+    border-radius: 0.3em;
+    padding: 1em;
+    margin: 0.5em 0;
 }
 
 /* Background */
@@ -451,10 +465,3 @@ pre.chroma .lntd {
     color: #bf616a
 }
 
-/* GenericUnderline */
-.chroma .gl {
-}
-
-/* TextWhitespace */
-.chroma .w {
-}
