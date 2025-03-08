@@ -1,0 +1,78 @@
+/* 整体样式 */
+#fastSearch {
+    visibility: hidden;
+    position: fixed; /* 或者 absolute，取决于你的布局 */
+    top: 0; /* 根据需要调整位置 */
+    right: 0;
+    z-index: 1000; /* 确保在其他内容之上 */
+    background-color: color-mix(in oklab, var(--dialog-color) 90%, transparent); /* 统一背景色，可根据喜好调整 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 可选：添加阴影 */
+    overflow-y: auto; /* 内容超出时可滚动 */
+    border-left: 1px solid #e9ecef;
+}
+
+/* 输入框样式 */
+#searchInput {
+    width: 100%;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #dee2e6;
+    outline: none; /* 去除默认焦点样式 */
+    box-sizing: border-box;
+    color: var(--text-color);
+    background-color: color-mix(in oklab, var(--dialog-color) 90%, transparent);
+}
+/* 搜索结果列表 */
+#searchResults {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#searchResults li {
+    border-bottom: 1px solid #e9ecef;
+}
+
+#searchResults a {
+    display: block;
+    padding: 10px 15px;
+    color: color-mix(in oklab, var(--link-color), #343a40); /* 链接颜色 */
+    text-decoration: none; /* 去除下划线 */
+}
+
+#searchResults a:hover {
+    background-color: color-mix(in oklab, var(--text-color), #e2e6ea); /* 鼠标悬停效果 */
+}
+
+/* 标题和描述样式 */
+#searchResults .title {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+#searchResults .sc,
+#searchResults em {
+    color: color-mix(in srgb, var(--text-color) 25%, #6c757d); /* 次要文本颜色 */
+    font-size: 0.9em;
+}
+
+/* 媒体查询，针对桌面设备 */
+@media (min-width: 768px) { /* 768px 是一个常见的分界点，可根据需要调整 */
+    #fastSearch {
+        width: 20%;
+        height: 100vh; /* 占满整个视口高度 */
+    }
+}
+
+/* 媒体查询，针对移动设备 */
+@media (max-width: 767px) {
+    #fastSearch {
+        width: 100%;
+        /*或者固定在底部*/
+        /*position: fixed;
+        bottom: 0;
+        left: 0;*/
+        border-left: none;
+    }
+}

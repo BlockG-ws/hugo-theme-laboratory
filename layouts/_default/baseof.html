@@ -13,6 +13,13 @@
   {{ if templates.Exists "partials/custom_footer.html" }}
     {{ partial "custom_footer.html" . }}
   {{ end }}
+  {{ with .Site.Params.search }}
+      {{ if eq .method "fastsearch" }}
+        {{ partialCached "components/search/fastsearch.html" . }}
+      {{ else if eq .method "searchform" }}
+        {{ partialCached "components/search/searchform.html" . }}
+      {{ end }}
+  {{ end }}
   <footer>
     {{ partialCached "footer.html" . }}
   </footer>

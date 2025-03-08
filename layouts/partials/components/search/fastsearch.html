@@ -1,0 +1,28 @@
+{{/* from https://gist.github.com/cmod/5410eae147e4318164258742dd053993 under MIT License */}}
+{{- with resources.Get "css/search.css" }}
+  {{- if eq hugo.Environment "development" }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}">
+  {{- else }}
+    {{- with . | minify | fingerprint }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+    {{- end }}
+  {{- end }}
+{{- end }}
+<noscript> JavaScript is needed for search to work.</noscript>
+<div id="fastSearch">
+  <input id="searchInput" tabindex="0">
+  <ul id="searchResults">
+  </ul>
+</div>
+{{- with resources.Get "/js/search/fastsearch.js" }}
+  {{- if eq hugo.Environment "development" }}
+    {{- with . | js.Build }}
+      <script src="{{ .RelPermalink }}" async></script>
+    {{- end }}
+  {{- else }}
+    {{- $opts := dict "minify" true }}
+    {{- with . | js.Build $opts | fingerprint }}
+      <script src="{{ .RelPermalink }}" integrity="{{- .Data.Integrity }}" crossorigin="anonymous" async></script>
+    {{- end }}
+  {{- end }}
+{{- end }}

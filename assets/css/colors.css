@@ -13,6 +13,7 @@
         --accent-color: #0df;
         --text-color: #222;
         --link-color: #00f;
+        --dialog-color: #f8f9fa;
     }
 }
 /* dark */
@@ -22,5 +23,6 @@
         --accent-color: #0df;
         --text-color: #ddd;
         --link-color: #0ff;
+        --dialog-color: #212529;
     }
 }
