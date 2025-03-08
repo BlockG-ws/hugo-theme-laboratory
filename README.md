@@ -6,6 +6,7 @@ Simply a theme.
 - Completely use vanilla CSS and JS.
 - simple, clean, and minimalistic design.
 - responsive design, looks good on all devices.
+- full text RSS feed
 - bring your fediverse account home, display your latest statuses on your website.
 ## Installation
 The only method recommend by now is to use the theme as a submodule.

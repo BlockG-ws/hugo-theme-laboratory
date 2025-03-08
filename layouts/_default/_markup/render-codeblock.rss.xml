@@ -1,0 +1,6 @@
+{{/* normalize the codeblock in rss */}}
+<pre>
+    <code>
+        {{ .Inner | safeHTML }}
+    </code>
+</pre>
