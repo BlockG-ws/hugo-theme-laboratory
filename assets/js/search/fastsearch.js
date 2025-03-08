@@ -23,7 +23,7 @@ const DEFAULT_CONFIG = {
         }
     },
     search: {
-        minChars: 2,              // Minimum characters before searching
+        minChars: 1,              // Minimum characters before searching
         maxResults: 5,            // Maximum number of results to show
         fields: {                 // Fields to search through
             title: true,            // Allow searching in title

@@ -1,5 +1,9 @@
 {{- $.Scratch.Add "index" slice -}}
-{{- range .Site.RegularPages -}}
-{{- $.Scratch.Add "index" (dict "title" .Title "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .Permalink) -}}
+
+{{ $postsType := default .Site.Params.defaultPostsType "posts" }}
+{{- range where site.RegularPages "Type" $postsType -}}
+{{ $desc := (or .Description .Summary) | plainify }}
+{{- $.Scratch.Add "index" (dict "title" .Title "tags" .Params.tags "categories" .Params.categories "contents" .Plain "permalink" .Permalink "date" .Date "desc" $desc "section" .Section) -}}
 {{- end -}}
 {{- $.Scratch.Get "index" | jsonify -}}
+{{/*only search regular posts */}}

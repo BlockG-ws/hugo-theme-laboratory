@@ -18,7 +18,7 @@
       </div>
     </script>
 
-    {{- with resources.Get "/js/search/fuse-fastsearch.js" }}
+    {{- with resources.Get "/js/search/fuse-search.js" }}
       {{- if eq hugo.Environment "development" }}
       {{- with . | js.Build }}
       <script src="{{ .RelPermalink }}" async></script>

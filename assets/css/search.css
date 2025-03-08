@@ -42,7 +42,7 @@
 }
 
 #searchResults a:hover {
-    background-color: color-mix(in oklab, var(--text-color), #e2e6ea); /* 鼠标悬停效果 */
+    background-color: color-mix(in oklab, var(--background-color), #e2e6ea); /* 鼠标悬停效果 */
 }
 
 /* 标题和描述样式 */
