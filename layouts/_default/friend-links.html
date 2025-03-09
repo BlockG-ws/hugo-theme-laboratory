@@ -1,0 +1,32 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+  <section class="content">{{ .Content }}</section>
+  <!-- TODO: pull from remote sources -->
+  <section class="links">
+    {{ range .Site.Data.links }}
+      <a href="{{ .link }}" target="_blank" rel="external">
+        <div class="card">
+          {{ with .banner }}<div class="banner" style="background-image:url({{ . }})"></div>{{ end }}
+          <div class="avatar" style="background-image:url({{ .avatar }});"></div>
+          <div class="info">
+            <div class="name">
+              <span> {{ .name | emojify }}</span>
+            </div>
+            <div class="description">
+              {{ .description | emojify }}
+            </div>
+          </div>
+        </div>
+      </a>
+    {{ end }}
+  </section>
+  {{- with resources.Get "css/friend-links.css" }}
+    {{- if eq hugo.Environment "development" }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{- else }}
+      {{- with . | minify | fingerprint }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{ end }}

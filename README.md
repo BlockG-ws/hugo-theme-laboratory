@@ -107,6 +107,27 @@ anotherid:
 ```
 It's also useful if you want to write your own statuses or use external tools to pull data from external sources.
 
+### Configuring blog rolls
+To display your friends' links from your website, you need to create a new file in the `content` directory, and set the layout to `friend-links`.
+
+To make it easier, you can use the `archetypes/friends.md` file to create a new file:
+```bash
+hugo new content -k friends content/friends.md
+```
+Then write a list of your friends' links in the `data/links.yaml` file with the format:
+```yaml
+- name: Link # the name/title of the destination
+  link: https://www.youtube.com/watch?v=cqT0OKlEo9w # the link to the destination
+  avatar: https://example.org/avatar.png # set an avatar
+  description: We know each other for so long # the description
+- name: Another Link
+  link: https://google.com
+  avatar: https://example.com/avatar.webp
+  description: Your heart's been aching, but you're too shy to say it
+  banner: https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fstatic2.srcdn.com%2Fwordpress%2Fwp-content%2Fuploads%2F2021%2F02%2FRick-Astley-Never-Gonna-Give-You-Up-Remastered-Header.jpg&f=1&nofb=1&ipt=08ad9de5ea48e701fceb84cac7ddfd241a48e37de6e6fa5f234a6cf68b3635e9&ipo=images # (optional) a banner that will display at the head of card
+```
+
+And you're all done! You can now build your site and see your friends' links on your website at /friends/ .
 
 ## Special thanks
 These projects have inspired me on design/styles of the theme:
@@ -115,6 +136,7 @@ These projects have inspired me on design/styles of the theme:
 - [hugo-bearcub](https://github.com/clente/hugo-bearcub) for article list design and custom colors
 - [Astro Micro](https://github.com/trevortylerlee/astro-micro) for its recent article list design
 - [Primer](https://github.com/pages-themes/primer) for the general styling
+- [mdui](https://mdui.org) for article layout and styling
 
 These projects have inspired me on features of the theme:
 - [blowfish](https://blowfish.page/) for the TOC displaying and comments features.
